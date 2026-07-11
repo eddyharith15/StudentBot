@@ -1,0 +1,6 @@
+# Jangan upload fail ni ke GitHub — ada secrets/data sensitif
+.env
+venv/
+__pycache__/
+*.pyc
+studybot.db
