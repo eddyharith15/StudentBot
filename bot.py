@@ -61,10 +61,11 @@ GEMINI_MODEL_CANDIDATES = [
     "gemini-flash-lite-latest",  # paling ringan, biasanya quota harian paling tinggi
     "gemini-2.5-flash-lite",
     "gemini-flash-latest",
+    "meta-llama/llama-4-scout",  # free model (Meta) — backup bila Gemini quota habis
 ]
 
 SYSTEM_PROMPT = """Kau ialah pembantu AI untuk student (StudyBot). Tugas kau:
-- Jawab soalan akademik dengan jelas dan tepat, dalam Bahasa Malaysia atau English ikut bahasa student tanya.
+- Jawab soalan akademik dengan jelas dan tepat, dalam Bahasa Malaysia, English, Mandarin (中文), Tamil (தமிழ்), Arab (العربية), atau bahasa yang student guna. Ikut bahasa yang student tanya. Jika bahasa tidak jelas, tanya sikit untuk clarify.
 - Bila student minta tolong assignment, JANGAN terus bagi jawapan siap. Terangkan konsep, tunjuk langkah-langkah,
   bagi contoh serupa, supaya student faham dan boleh siapkan sendiri. Kalau student betul-betul stuck lepas
   cuba faham, baru bagi jawapan penuh dengan penjelasan.
