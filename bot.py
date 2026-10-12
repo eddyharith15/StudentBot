@@ -548,6 +548,16 @@ async def help_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif action.startswith("export_"):
         fmt = action.split("_", 1)[1]
         await do_export(user, context, fmt, [], reply_func, query.message.reply_document)
+    elif action == "show_all":
+        await reply_func(
+            "📋 Menu StudyBot — semua button muncul",
+            reply_markup=help_keyboard(show_all=True),
+        )
+    elif action == "hide":
+        await reply_func(
+            "💬 Chat Mode — button disembunyikan. Taip /start untuk nampak semula.",
+            reply_markup=toggle_keyboard(),
+        )
 
 
 def ai_draft_keyboard(ticket_id: int) -> InlineKeyboardMarkup:
@@ -865,7 +875,7 @@ async def process_media(
     for i in range(0, len(reply_text), 4000):
         chunk = reply_text[i : i + 4000]
         is_last = i + 4000 >= len(reply_text)
-        await update.message.reply_text(chunk + (footer if is_last else ""))
+        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard() if i == 0 else None)
 
 
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -969,7 +979,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for i in range(0, len(reply_text), 4000):
         chunk = reply_text[i : i + 4000]
         is_last = i + 4000 >= len(reply_text)
-        await update.message.reply_text(chunk + (footer if is_last else ""))
+        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard() if i == 0 else None)
 
 
 # ---------- Run bot + web server together ----------
