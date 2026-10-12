@@ -491,7 +491,7 @@ async def terms_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def toggle_keyboard() -> InlineKeyboardMarkup:
     # Toggle button in text bar area: Show/Hide all function buttons
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📋 Menu StudyBot (Toggle)", callback_data="help:toggle")]
+        [InlineKeyboardButton("📋 Menu (Toggle)", callback_data="help:toggle")]
     ])
 
 def help_keyboard(show_all=True) -> InlineKeyboardMarkup:
@@ -880,7 +880,7 @@ async def process_media(
     for i in range(0, len(reply_text), 4000):
         chunk = reply_text[i : i + 4000]
         is_last = i + 4000 >= len(reply_text)
-        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard() if i == 0 else None)
+        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard())
 
 
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -984,7 +984,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for i in range(0, len(reply_text), 4000):
         chunk = reply_text[i : i + 4000]
         is_last = i + 4000 >= len(reply_text)
-        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard() if i == 0 else None)
+        await update.message.reply_text(chunk + (footer if is_last else ""), reply_markup=toggle_keyboard())
 
 
 # ---------- Run bot + web server together ----------
