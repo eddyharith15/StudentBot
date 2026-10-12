@@ -224,15 +224,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "/reset untuk mula chat baru. Guna /help untuk senarai penuh command, "
             "/terms untuk terma & dasar privasi.\n\n"
             "Sebelum mula, sila baca dulu panduan ringkas macam mana nak guna StudyBot 👇",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("📖 Panduan Guna StudyBot", callback_data="help:manual")]]
-            ),
+            reply_markup=toggle_keyboard(),
         )
     else:
         await update.message.reply_text(
             f"Hai balik {user.first_name}! Baki kredit kau: {credits} 💳\n"
             "Taip soalan kau, atau /topup kalau nak tambah kredit.",
-            reply_markup=ReplyKeyboardRemove(),
+            reply_markup=toggle_keyboard(),
         )
 
 
