@@ -488,7 +488,13 @@ async def terms_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_terms(update.message.reply_text)
 
 
-def help_keyboard() -> InlineKeyboardMarkup:
+def toggle_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("📋 Menu StudyBot (Show All)", callback_data="help:show_all")],
+        [InlineKeyboardButton("💬 Chat Mode (Hide)", callback_data="help:hide")]
+    ])
+
+def help_keyboard(show_all=True) -> InlineKeyboardMarkup:
     buttons = [
         [InlineKeyboardButton("📖 Panduan Guna", callback_data="help:manual")],
         [InlineKeyboardButton("💳 Kredit Saya", callback_data="help:credits"),
