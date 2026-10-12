@@ -489,9 +489,9 @@ async def terms_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def toggle_keyboard() -> InlineKeyboardMarkup:
+    # Toggle button in text bar area: Show/Hide all function buttons
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📋 Menu StudyBot (Show All)", callback_data="help:show_all")],
-        [InlineKeyboardButton("💬 Chat Mode (Hide)", callback_data="help:hide")]
+        [InlineKeyboardButton("📋 Menu StudyBot (Toggle)", callback_data="help:toggle")]
     ])
 
 def help_keyboard(show_all=True) -> InlineKeyboardMarkup:
@@ -544,6 +544,11 @@ async def help_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await reply_func(
             "Nak hubungi admin? Taip command ni dengan penerangan masalah kau, contoh:\n"
             "/support kredit saya tak masuk lepas bayar tadi"
+        )
+    elif action == "toggle":
+        await reply_func(
+            "📋 Menu StudyBot — semua button muncul. Klik satu untuk akses pantas, atau taip terus soalan.",
+            reply_markup=help_keyboard(show_all=True),
         )
     elif action.startswith("export_"):
         fmt = action.split("_", 1)[1]
