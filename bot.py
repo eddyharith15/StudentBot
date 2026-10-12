@@ -24,7 +24,7 @@ import asyncio
 import base64
 
 from google import genai
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -141,7 +141,7 @@ def topup_keyboard() -> InlineKeyboardMarkup:
         ]
         for p in config.PACKAGES
     ]
-    return InlineKeyboardMarkup(buttons)
+    return ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=False)
 
 
 def get_last_ai_answer(user_id: int) -> str | None:
@@ -487,13 +487,20 @@ async def terms_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_terms(update.message.reply_text)
 
 
-def toggle_keyboard() -> InlineKeyboardMarkup:
-    # Toggle button in text bar area: Show/Hide all function buttons
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📋 Menu (Toggle)", callback_data="help:toggle")]
-    ])
+def toggle_keyboard() -> ReplyKeyboardMarkup:
+    # Persistent keyboard at bottom of chat: always visible
+    return ReplyKeyboardMarkup([
+        [KeyboardButton("📋 Menu StudyBot")],
+        [KeyboardButton("📖 Panduan"), KeyboardButton("💳 Kredit")],
+        [KeyboardButton("💰 Topup"), KeyboardButton("🎁 Referral")],
+        [KeyboardButton("🔄 Reset"), KeyboardButton("📜 Terms")],
+        [KeyboardButton("📄 PDF"), KeyboardButton("📝 Word")],
+        [KeyboardButton("📊 PPT"), KeyboardButton("📈 Excel")],
+        [KeyboardButton("💬 Chat Mode")],
+        [KeyboardButton("🆘 Admin")],
+    ], resize_keyboard=True, one_time_keyboard=False)
 
-def help_keyboard(show_all=True) -> InlineKeyboardMarkup:
+def help_keyboard(show_all=True) -> ReplyKeyboardMarkup:
     buttons = [
         [InlineKeyboardButton("📖 Panduan Guna", callback_data="help:manual")],
         [InlineKeyboardButton("💳 Kredit Saya", callback_data="help:credits"),
@@ -507,7 +514,7 @@ def help_keyboard(show_all=True) -> InlineKeyboardMarkup:
         [InlineKeyboardButton("📜 Terma & Privasi", callback_data="help:terms"),
          InlineKeyboardButton("🆘 Hubungi Admin", callback_data="help:support")],
     ]
-    return InlineKeyboardMarkup(buttons)
+    return ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=False)
 
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
